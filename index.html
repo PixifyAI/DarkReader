@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DarkReader</title>
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#18181b" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'glass-fg': 'rgba(229, 231, 235, 0.9)',
+              'glass-bg': 'rgba(31, 41, 55, 0.5)',
+              'glass-border': 'rgba(255, 255, 255, 0.2)',
+            },
+            typography: ({ theme }) => ({
+                DEFAULT: {
+                    css: {
+                        '--tw-prose-body': theme('colors.zinc[300]'),
+                        '--tw-prose-headings': theme('colors.zinc[100]'),
+                        '--tw-prose-lead': theme('colors.zinc[400]'),
+                        '--tw-prose-links': theme('colors.indigo[400]'),
+                        '--tw-prose-bold': theme('colors.zinc[100]'),
+                        '--tw-prose-counters': theme('colors.zinc[400]'),
+                        '--tw-prose-bullets': theme('colors.zinc[600]'),
+                        '--tw-prose-hr': theme('colors.zinc[700]'),
+                        '--tw-prose-quotes': theme('colors.zinc[100]'),
+                        '--tw-prose-quote-borders': theme('colors.zinc[700]'),
+                        '--tw-prose-captions': theme('colors.zinc[400]'),
+                        '--tw-prose-code': theme('colors.zinc[100]'),
+                        '--tw-prose-pre-code': theme('colors.zinc[300]'),
+                        '--tw-prose-pre-bg': 'transparent', // Make pre background transparent
+                        '--tw-prose-th-borders': theme('colors.zinc[600]'),
+                        '--tw-prose-td-borders': theme('colors.zinc[700]'),
+                        '--tw-prose-invert-body': theme('colors.zinc[700]'),
+                        '--tw-prose-invert-headings': theme('colors.zinc[900]'),
+                        '--tw-prose-invert-lead': theme('colors.zinc[600]'),
+                        '--tw-prose-invert-links': theme('colors.indigo[600]'),
+                        '--tw-prose-invert-bold': theme('colors.zinc[900]'),
+                        '--tw-prose-invert-counters': theme('colors.zinc[600]'),
+                        '--tw-prose-invert-bullets': theme('colors.zinc[400]'),
+                        '--tw-prose-invert-hr': theme('colors.zinc[300]'),
+                        '--tw-prose-invert-quotes': theme('colors.zinc[900]'),
+                        '--tw-prose-invert-quote-borders': theme('colors.zinc[300]'),
+                        '--tw-prose-invert-captions': theme('colors.zinc[600]'),
+                        '--tw-prose-invert-code': theme('colors.zinc[900]'),
+                        '--tw-prose-invert-pre-code': theme('colors.zinc[700]'),
+                        '--tw-prose-invert-pre-bg': 'transparent', // Make pre background transparent
+                        '--tw-prose-invert-th-borders': theme('colors.zinc[400]'),
+                        '--tw-prose-invert-td-borders': theme('colors.zinc[300]'),
+                    },
+                },
+            }),
+          },
+        },
+      };
+    </script>
+    <style>
+      /* Custom Dot Grid Cursor */
+      body {
+        /* A 3x3 dot grid SVG cursor (hollow center), centered */
+        cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 8 8"><circle cx="1" cy="1" r="0.5" fill="white"/><circle cx="4" cy="1" r="0.5" fill="white"/><circle cx="7" cy="1" r="0.5" fill="white"/><circle cx="1" cy="4" r="0.5" fill="white"/><circle cx="7" cy="4" r="0.5" fill="white"/><circle cx="1" cy="7" r="0.5" fill="white"/><circle cx="4" cy="7" r="0.5" fill="white"/><circle cx="7" cy="7" r="0.5" fill="white"/></svg>') 16 16, auto;
+      }
+      /* Ensure interactive elements retain the pointer cursor for usability */
+      button, a, input, label[for], [role="button"] {
+          cursor: pointer;
+      }
+
+      .pdf-dark-mode-filter {
+        filter: invert(1) hue-rotate(180deg);
+      }
+      .no-scrollbar::-webkit-scrollbar {
+          display: none;
+      }
+      .no-scrollbar {
+          -ms-overflow-style: none;  /* IE and Edge */
+          scrollbar-width: none;  /* Firefox */
+      }
+      /* Custom styles for XLSX tables */
+      table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-bottom: 1rem;
+          font-size: 0.875rem;
+      }
+      th, td {
+          border: 1px solid #4a5568; /* zinc-700 */
+          padding: 0.5rem 0.75rem;
+          text-align: left;
+      }
+      th {
+        background-color: #27272a; /* zinc-800 */
+        font-weight: 600;
+      }
+      .dark\:prose-invert table th {
+         background-color: #e4e4e7; /* zinc-200 */
+      }
+       .dark\:prose-invert table th, .dark\:prose-invert table td {
+         border-color: #a1a1aa; /* zinc-400 */
+      }
+    </style>
+    <!-- PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    </script>
+    <!-- Mammoth.js for DOCX -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+    <!-- SheetJS for XLSX -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <!-- ePub.js for EPUB -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/epub.js/0.3.93/epub.min.js"></script>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.1.1/",
+    "react": "https://esm.sh/react@^19.1.1",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.1/",
+    "@google/genai": "https://esm.sh/@google/genai"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-zinc-900 text-zinc-200 antialiased">
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

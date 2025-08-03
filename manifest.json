@@ -1,0 +1,22 @@
+
+{
+  "short_name": "DarkReader",
+  "name": "DarkReader: Advanced Document Viewer",
+  "icons": [
+    {
+      "src": "https://picsum.photos/192",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "https://picsum.photos/512",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#18181b",
+  "background_color": "#18181b",
+  "description": "An advanced document reader for presenters."
+}

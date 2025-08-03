@@ -1,0 +1,9 @@
+{
+  "name": "DarkReader",
+  "description": "An advanced, presentation-oriented document reader with a dark, glassmorphic UI. It supports PDF, DOCX, and TXT files, featuring customizable highlighting, text-to-speech, a presenter spotlight, and persistent storage.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ],
+  "prompt": ""
+}
