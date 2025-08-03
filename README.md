@@ -3,7 +3,7 @@
 
 ![DarkReader Screenshot](/public/images/main.png)
 ![DarkReader Screenshot](/public/images/highlight.png)
-![DarkReader Screenshot](/public/images/spotlight.png)
+![DarkReader Screenshot](/public/images/doc-gallery.png)
 
 **DarkReader** is a sophisticated, presentation-oriented document reader designed for the modern web. Built with a sleek, dark, glassmorphic UI, it provides a feature-rich environment for viewing and interacting with various document formats. It leverages the power of the Gemini API for an intelligent voice assistant and is built as a fully offline-capable Progressive Web App (PWA).
 
