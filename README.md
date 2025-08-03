@@ -1,7 +1,7 @@
 # DarkReader: Advanced Document Viewer
 
 
-![DarkReader Screenshot](/images/main.png)
+![DarkReader Screenshot](/public/images/main.png)
 ![DarkReader Screenshot](/images/highlight.png)
 ![DarkReader Screenshot](/images/spotlight.png)
 
